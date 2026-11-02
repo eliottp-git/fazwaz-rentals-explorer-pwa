@@ -1,0 +1,12 @@
+node_modules/
+data/cache/
+data/*.tmp
+
+# Personal/user data — never commit. Only data/filters.json (the shipped
+# filter schema) belongs in the repo.
+data/applied.json
+data/district-cache.json
+data/favourites.json
+data/notes.json
+data/project-favourites.json
+data/saved-searches.json

@@ -1,0 +1,23 @@
+{
+  "name": "fazwaz-rentals",
+  "version": "1.0.0",
+  "description": "Self-hosted FazWaz rental search with local favourites, notes and saved searches",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "fazwaz",
+    "property",
+    "rentals",
+    "thailand",
+    "bangkok",
+    "self-hosted"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

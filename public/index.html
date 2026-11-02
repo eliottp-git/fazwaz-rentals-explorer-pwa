@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#006CE3">
+<title>FazWaz Rentals</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<script src="pwa-register.js" defer></script>
+<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><a href="./" id="brandLink" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;">🏠 FazWaz <span>Rentals</span></a></div>
+  <div class="region-select">
+    <label>Region</label>
+    <select id="region">
+      <option value="/thailand/bangkok" selected>Bangkok</option>
+      <option value="/thailand/chon-buri/pattaya">Pattaya</option>
+      <option value="/thailand/phuket">Phuket</option>
+      <option value="/thailand/chiang-mai">Chiang Mai</option>
+      <option value="/thailand/prachuap-khiri-khan/hua-hin">Hua Hin</option>
+      <option value="/thailand/surat-thani/koh-samui">Koh Samui</option>
+    </select>
+  </div>
+  <div class="nav-actions">
+    <button class="btn btn-ghost" id="propsBtn">🏠 Properties</button>
+    <button class="btn btn-ghost" id="projectsBtn">🏢 Projects</button>
+    <button class="btn btn-ghost" id="appliedBtn">✓ Applied</button>
+    <button class="btn btn-ghost" id="savedBtn">★ Saved</button>
+    <button class="btn btn-ghost" id="favsBtn">♥ Favourites <span class="badge-n hidden" id="favsCount"></span></button>
+  </div>
+</header>
+
+<section class="filterbar" id="filterbar">
+  <div class="mobile-bar" id="mobileBar">
+    <button class="btn btn-ghost" id="mPropsBtn">🏠 Properties</button>
+    <button class="btn btn-ghost" id="mProjectsBtn">🏢 Projects</button>
+    <button class="btn btn-ghost" id="mFiltersBtn">⚙ Filters <span class="badge-n hidden" id="mBadge"></span></button>
+    <button class="btn btn-ghost" id="mAppliedBtn">✓ Applied</button>
+    <button class="btn btn-ghost" id="mSavedBtn">★ Saved</button>
+    <button class="btn btn-ghost" id="mFavsBtn">♥ Favourites<span class="badge-n hidden" id="mFavsCount"></span></button>
+    <div class="count-box" id="mCountSlot"></div>
+  </div>
+  <!-- projects search bar (shown only in the Projects section) -->
+  <div class="proj-filters hidden" id="projFilters">
+    <div class="proj-search-row">
+      <input type="search" id="projSearchInput" placeholder="Search projects by name (e.g. Vtara)" autocomplete="off">
+      <button class="btn btn-primary" id="projSearchBtn">Search</button>
+      <button class="btn btn-ghost proj-sheet-only" id="projFiltersBtn">⚙ Filters</button>
+      <button class="btn btn-ghost" id="projResetBtn">Reset</button>
+    </div>
+    <div class="f-field proj-amen-inline">
+      <label>Project Features</label>
+      <div class="chips" id="projAmenChips"></div>
+    </div>
+    <div class="result-line">
+      <span class="count-box" id="projCountBox"></span>
+    </div>
+  </div>
+  <div class="core-filters" id="coreFilters">
+    <div class="f-field f-price">
+      <label>Price (฿/mo)</label>
+      <div class="range-inputs">
+        <input type="number" id="priceMin" placeholder="Min" min="0" inputmode="numeric">
+        <span>–</span>
+        <input type="number" id="priceMax" placeholder="Max" min="0" inputmode="numeric">
+      </div>
+    </div>
+    <div class="f-field">
+      <label>Beds</label>
+      <div class="chips" id="bedsChips"></div>
+    </div>
+    <div class="f-field">
+      <label>Type</label>
+      <div class="chips" id="typeChips"></div>
+    </div>
+    <div class="f-field f-actions">
+      <button class="btn btn-ghost" id="moreFiltersBtn">More Filters ▾</button>
+      <button class="btn btn-ghost" id="resetBtn">Reset</button>
+      <button class="btn btn-primary" id="searchBtn">Search</button>
+    </div>
+  </div>
+  <div class="more-filters hidden" id="moreFilters">
+    <div class="save-search-row"><button class="btn btn-ghost save-search-btn" id="saveSearchBtn">💾 Save this search</button></div>
+  </div>
+  <div class="result-line">
+    <div class="sort-box">
+      <label>Sort</label>
+      <select id="orderBy">
+        <option value="created_at|desc">New Listings</option>
+        <option value="rank|asc">Recommended</option>
+        <option value="monthly_price|asc">Price (low → high)</option>
+        <option value="monthly_price|desc">Price (high → low)</option>
+        <option value="sqm|desc">Size (large → small)</option>
+        <option value="sqm|asc">Size (small → large)</option>
+        <option value="user_updated_at|desc">Last Updated</option>
+        <option value="bedrooms|desc">Bedrooms</option>
+        <option value="with_video_first|desc">With Video Tours</option>
+      </select>
+    </div>
+    <div class="count-box" id="countBox"></div>
+  </div>
+</section>
+
+<!-- mobile filter sheet -->
+<div class="sheet-backdrop hidden" id="sheetBackdrop"></div>
+<div class="sheet" id="filterSheet" aria-hidden="true">
+  <div class="sheet-handle-row"><div class="sheet-handle"></div></div>
+  <div class="sheet-head">
+    <h3>Filters</h3>
+    <button class="sheet-close" id="sheetClose">✕</button>
+  </div>
+  <div class="sheet-body" id="sheetBody"></div>
+  <div class="sheet-foot">
+    <button class="btn btn-ghost" id="sheetReset">Reset</button>
+    <button class="btn btn-primary" id="sheetApply">Apply Filters</button>
+  </div>
+</div>
+
+<!-- mobile: saved searches sheet -->
+<div class="sheet-backdrop hidden" id="savedBackdrop"></div>
+<div class="sheet" id="savedSheet" aria-hidden="true">
+  <div class="sheet-handle-row"><div class="sheet-handle"></div></div>
+  <div class="sheet-head">
+    <h3>Saved Searches</h3>
+    <button class="sheet-close" id="savedSheetClose">✕</button>
+  </div>
+  <div class="sheet-body" id="savedSheetBody"></div>
+</div>
+
+<!-- desktop: saved searches dropdown -->
+<div class="saved-dd hidden" id="savedDropdown">
+  <div id="savedDdList"></div>
+</div>
+
+<!-- save search modal -->
+<div class="modal hidden" id="saveModal">
+  <div class="modal-card save-card">
+    <h3>Save this search</h3>
+    <input type="text" id="saveTitleInput" placeholder="Name this search (e.g. 2BR condo near BTS)" maxlength="80">
+    <div class="save-card-actions">
+      <button class="btn btn-ghost" id="saveCancelBtn">Cancel</button>
+      <button class="btn btn-primary" id="saveConfirmBtn">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- applied un-mark confirmation modal -->
+<div class="modal hidden" id="appliedConfirmModal">
+  <div class="modal-card save-card">
+    <h3>Remove applied mark?</h3>
+    <div class="or-sub">This property will no longer be marked as applied. The date will be lost.</div>
+    <div class="save-card-actions">
+      <button class="btn btn-ghost" id="appliedConfirmCancel">Cancel</button>
+      <button class="btn btn-primary" id="appliedConfirmOk">Remove mark</button>
+    </div>
+  </div>
+</div>
+
+<!-- merge filters (OR) modal -->
+<div class="modal hidden" id="orModal">
+  <div class="modal-card save-card">
+    <h3 id="orModalTitle">Merge filters</h3>
+    <div class="or-sub" id="orModalSub"></div>
+    <div class="chips or-chips" id="orModalChips"></div>
+    <div class="or-hint">Properties matching <b>any</b> of the selected filters will be shown.</div>
+    <div class="save-card-actions">
+      <button class="btn btn-ghost" id="orCancelBtn">Cancel</button>
+      <button class="btn btn-primary" id="orConfirmBtn">Merge</button>
+    </div>
+  </div>
+</div>
+
+<main id="results" class="results"></main>
+
+<!-- favourites section: full cards, newest save first -->
+<section id="favsView" class="results favs-view hidden">
+  <div class="favs-head">
+    <h2>♥ Favourites</h2>
+    <span class="favs-meta" id="favsMeta"></span>
+    <button class="btn btn-ghost" id="favsBackBtn">← Back to results</button>
+  </div>
+  <div id="favsList"></div>
+</section>
+
+<!-- applied section: properties marked applied, newest mark first -->
+<section id="appliedView" class="results favs-view hidden">
+  <div class="favs-head">
+    <h2>✓ Applied</h2>
+    <span class="favs-meta" id="appliedMeta"></span>
+    <button class="btn btn-ghost" id="appliedBackBtn">← Back to results</button>
+  </div>
+  <div id="appliedList"></div>
+</section>
+
+<!-- project information page (rendered from ?url=<fazwaz project url>) -->
+<section id="projView" class="results proj-view hidden">
+  <div class="favs-head">
+    <button class="btn btn-ghost" id="projBackBtn">← Back to results</button>
+  </div>
+  <div id="projBody"></div>
+  <!-- in-app property card shown when an Available-Rentals row is clicked -->
+  <div id="pfUnitView" class="hidden"></div>
+  <!-- full per-project Available-Rentals listing (opened from the project page heading) -->
+  <div id="pfListView" class="hidden">
+    <div class="favs-head">
+      <button class="btn btn-ghost" id="pfListBack">← Back to project</button>
+      <h2 id="pfListTitle"></h2>
+      <span class="pf-list-sort" id="pfListSortBox">
+        <label>Sort</label>
+        <select id="pfListSort">
+          <option value="sqm|desc" selected>Size (large → small)</option>
+          <option value="sqm|asc">Size (small → large)</option>
+          <option value="price|asc">Price (low → high)</option>
+          <option value="price|desc">Price (high → low)</option>
+          <option value="avail|asc">Available (soonest first)</option>
+          <option value="avail|desc">Available (latest first)</option>
+        </select>
+      </span>
+    </div>
+    <div id="pfListBody" class="results pf-list-results"></div>
+  </div>
+</section>
+
+<!-- projects listing section (building properties corpus) -->
+<section id="projectsView" class="results projects-view hidden">
+  <div class="favs-head">
+    <h2>🏢 Projects</h2>
+    <span class="favs-meta" id="projMeta"></span>
+  </div>
+  <div id="projSearchResults"></div>
+  <div id="projectsList"></div>
+</section>
+
+<!-- mobile: project feature filter sheet -->
+<div class="sheet-backdrop hidden" id="projSheetBackdrop"></div>
+<div class="sheet" id="projSheet" aria-hidden="true">
+  <div class="sheet-handle-row"><div class="sheet-handle"></div></div>
+  <div class="sheet-head">
+    <h3>Project Features</h3>
+    <button class="sheet-close" id="projSheetClose">✕</button>
+  </div>
+  <div class="sheet-body" id="projSheetBody"></div>
+  <div class="sheet-foot">
+    <button class="btn btn-ghost" id="projSheetReset">Reset</button>
+    <button class="btn btn-primary" id="projSheetApply">Apply</button>
+  </div>
+</div>
+
+<div id="sentinel" class="sentinel"></div>
+<div class="status hidden" id="status"></div>
+
+<!-- map modal -->
+<div class="modal hidden" id="mapModal">
+  <div class="modal-card map-card">
+    <button class="modal-close" data-close>✕</button>
+    <div id="mapHead" class="map-head"></div>
+    <div id="mapEl" class="map-el"></div>
+  </div>
+</div>
+
+<!-- image lightbox -->
+<div class="modal lightbox hidden" id="lightbox">
+  <button class="modal-close" data-close>✕</button>
+  <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous photo">‹</button>
+  <img id="lightboxImg" alt="">
+  <button class="lb-arrow lb-next" id="lbNext" aria-label="Next photo">›</button>
+  <div id="lightboxCounter" class="lb-counter"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="./app.js"></script>
+</body>
+</html>

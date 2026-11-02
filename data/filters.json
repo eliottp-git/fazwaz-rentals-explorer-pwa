@@ -1,0 +1,406 @@
+[
+ {
+  "type": "rangePrice",
+  "label": "Any Price",
+  "name": "monthly_price",
+  "minRange": {
+   "5000": "฿5,000",
+   "7500": "฿7,500",
+   "10000": "฿10,000",
+   "12500": "฿12,500",
+   "15000": "฿15,000",
+   "17500": "฿17,500",
+   "20000": "฿20,000",
+   "22500": "฿22,500",
+   "25000": "฿25,000",
+   "27500": "฿27,500",
+   "30000": "฿30,000",
+   "35000": "฿35,000",
+   "40000": "฿40,000",
+   "45000": "฿45,000",
+   "50000": "฿50,000",
+   "60000": "฿60,000",
+   "70000": "฿70,000",
+   "80000": "฿80,000",
+   "90000": "฿90,000",
+   "100000": "฿100,000",
+   "120000": "฿120,000",
+   "150000": "฿150,000",
+   "200000": "฿200,000",
+   "250000": "฿250,000",
+   "300000": "฿300,000",
+   "350000": "฿350,000",
+   "400000": "฿400,000",
+   "500000": "฿500,000",
+   "600000": "฿600,000",
+   "700000": "฿700,000",
+   "800000": "฿800,000",
+   "900000": "฿900,000",
+   "1000000": "฿1,000,000"
+  },
+  "maxRange": {
+   "5000": "฿5,000",
+   "7500": "฿7,500",
+   "10000": "฿10,000",
+   "12500": "฿12,500",
+   "15000": "฿15,000",
+   "17500": "฿17,500",
+   "20000": "฿20,000",
+   "22500": "฿22,500",
+   "25000": "฿25,000",
+   "27500": "฿27,500",
+   "30000": "฿30,000",
+   "35000": "฿35,000",
+   "40000": "฿40,000",
+   "45000": "฿45,000",
+   "50000": "฿50,000",
+   "60000": "฿60,000",
+   "70000": "฿70,000",
+   "80000": "฿80,000",
+   "90000": "฿90,000",
+   "100000": "฿100,000",
+   "120000": "฿120,000",
+   "150000": "฿150,000",
+   "200000": "฿200,000",
+   "250000": "฿250,000",
+   "300000": "฿300,000",
+   "350000": "฿350,000",
+   "400000": "฿400,000",
+   "500000": "฿500,000",
+   "600000": "฿600,000",
+   "700000": "฿700,000",
+   "800000": "฿800,000",
+   "900000": "฿900,000",
+   "1000000": "฿1,000,000"
+  }
+ },
+ {
+  "type": "radioGroup",
+  "label": "Beds",
+  "label2": "Beds",
+  "text": {
+   "exactLabel": "Use exact match",
+   "default": "Studio+"
+  },
+  "name": "bedrooms",
+  "items": {
+   "studio": "Studio",
+   "1": "1+",
+   "2": "2+",
+   "3": "3+",
+   "4": "4+"
+  }
+ },
+ {
+  "type": "propertyTypeGroup",
+  "label": "Property Type",
+  "label2": "Property Types",
+  "name": "types",
+  "items": {
+   "property_type_group": {
+    "17": "Condos",
+    "18": "Houses"
+   },
+   "commercial_property_type_group": {
+    "5184": "Office Spaces",
+    "5186": "Shophouses",
+    "5188": "Warehouses",
+    "5190": "Hotels & Resorts"
+   }
+  },
+  "subItems": {
+   "property_type_group": {
+    "17": [
+     "condo",
+     "apartment",
+     "penthouse"
+    ],
+    "18": [
+     "villa",
+     "house",
+     "townhouse"
+    ],
+    "19": [
+     "land",
+     "private-island"
+    ]
+   },
+   "commercial_property_type_group": {
+    "5184": [
+     "office"
+    ],
+    "5186": [
+     "shophouse",
+     "retail-space"
+    ],
+    "5188": [
+     "warehouse"
+    ],
+    "5190": [
+     "hotel"
+    ]
+   }
+  }
+ },
+ {
+  "type": "group",
+  "label": "Features",
+  "items": [
+   {
+    "type": "button-group-rank",
+    "label": "Views",
+    "name": "views",
+    "items": [
+     {
+      "id": 1,
+      "label": "Sea View"
+     },
+     {
+      "id": 3,
+      "label": "Golf or Park View"
+     },
+     {
+      "id": 4,
+      "label": "Lake or River View"
+     },
+     {
+      "id": 2,
+      "label": "Mountain View"
+     }
+    ]
+   },
+   {
+    "type": "button-group-rank",
+    "label": "Property Features",
+    "name": "projectFeatures",
+    "items": [
+     {
+      "id": 5,
+      "label": "Private Pool"
+     },
+     {
+      "id": 6,
+      "label": "Pool Access"
+     },
+     {
+      "id": 7,
+      "label": "Jacuzzi"
+     },
+     {
+      "id": 8,
+      "label": "Sauna"
+     },
+     {
+      "id": 9,
+      "label": "Private Garden"
+     },
+     {
+      "id": 6081,
+      "label": "Terrace"
+     },
+     {
+      "id": 6082,
+      "label": "Balcony"
+     },
+     {
+      "id": 3330,
+      "label": "Corner Unit"
+     },
+     {
+      "id": 3328,
+      "label": "Duplex"
+     },
+     {
+      "id": 10,
+      "label": "Private Gym"
+     },
+     {
+      "id": 6063,
+      "label": "Smart Home"
+     },
+     {
+      "id": 6064,
+      "label": "Fully Renovated"
+     },
+     {
+      "id": 11,
+      "label": "Beachfront"
+     },
+     {
+      "id": 12,
+      "label": "Beach Access"
+     }
+    ]
+   },
+   {
+    "type": "button-group-rank",
+    "label": "Project Amenities",
+    "name": "projectAmenities",
+    "items": [
+     {
+      "id": 13,
+      "label": "Communal Pool"
+     },
+     {
+      "id": 14,
+      "label": "Communal Gym"
+     },
+     {
+      "id": 15,
+      "label": "Tennis Court"
+     },
+     {
+      "id": 16,
+      "label": "24H Security"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "group",
+  "label": "More",
+  "options": {
+   "countAllElements": true
+  },
+  "items": [
+   {
+    "type": "saleType",
+    "label": "",
+    "name": "saleType",
+    "items": {
+     "forSale": "For Sale",
+     "forRent": "For Rent"
+    }
+   },
+   {
+    "type": "button-group-rank",
+    "label": "Nearby",
+    "name": "near_by",
+    "items": [
+     {
+      "label": "BTS",
+      "image": "https://media.fazwaz.com/assets/near-filter/06bbc92c38604c058b7a683fce89d3a5/yIhDgoKr4hJr2SqR6xaGuxGgaO9IokF8hAEhfHlP.jpeg",
+      "id": 158
+     },
+     {
+      "label": "MRT",
+      "image": "https://media.fazwaz.com/assets/near-filter/4785a2052575fe1dc37303fcb4b50f43/AwYbl0yod328mhGJznNihvTRr25oUIWIE74ChJJD.jpeg",
+      "id": 159
+     },
+     {
+      "label": "ARL",
+      "image": "https://media.fazwaz.com/assets/near-filter/86c6e96f1934f0799530172e1ec4cac5/l5sv6cqA0tFcFCUsA03w16KYanJhCvXPYHvkYe4H.jpeg",
+      "id": 160
+     },
+     {
+      "label": "BRT",
+      "image": "https://media.fazwaz.com/assets/near-filter/0f8b93a5bfd684e97bfadb8a9a3121e8/90imeUtArsByDaxahWsI7boqkeLLKTq900bIJeFF.png",
+      "id": 5064
+     }
+    ]
+   },
+   {
+    "type": "button-group-rank",
+    "label": "Pets",
+    "name": "pets",
+    "items": [
+     {
+      "id": "dog",
+      "label": "Dogs Allowed"
+     },
+     {
+      "id": "cat",
+      "label": "Cats Allowed"
+     }
+    ]
+   },
+   {
+    "type": "button-select",
+    "label": "Video Tour",
+    "name": "onlyVideoTourExists",
+    "items": {
+     "yes": {
+      "label": "Only Show Homes with video Tours",
+      "image": "/images/icon/360-degrees-black-icon.svg",
+      "activeImage": "/images/icon/360-degrees-black-icon.svg",
+      "imageHeight": 20,
+      "imageWidth": 20,
+      "imageStyle": ""
+     }
+    }
+   },
+   {
+    "type": "button-select",
+    "label": "Furniture",
+    "name": "furniture",
+    "items": {
+     "fully-furnished": "Fully Furnished",
+     "unfurnished": "Unfurnished"
+    }
+   },
+   {
+    "type": "button-group-rank",
+    "label": "Listing Source",
+    "name": "source",
+    "items": [
+     {
+      "id": "private",
+      "label": "Owner"
+     },
+     {
+      "id": "agent",
+      "label": "Agent"
+     }
+    ]
+   },
+   {
+    "type": "minMax",
+    "label": "Living Area",
+    "name": "living_area",
+    "text": {
+     "minPlaceHolder": "Min SqM",
+     "maxPlaceHolder": "Max SqM"
+    }
+   },
+   {
+    "type": "minMax",
+    "label": "Floor",
+    "name": "floors",
+    "text": {
+     "minPlaceHolder": "Min Floor",
+     "maxPlaceHolder": "Max Floor"
+    },
+    "description": "Filter units by the floor they're on. Use '0' as Max Floor to find ground floor units only."
+   },
+   {
+    "type": "minMax",
+    "label": "Storey",
+    "name": "storeys",
+    "text": {
+     "minPlaceHolder": "Min Storey",
+     "maxPlaceHolder": "Max Storey"
+    },
+    "description": "Filter properties by the number of storeys (floors) they have."
+   },
+   {
+    "type": "minMax",
+    "label": "Land Plot Area",
+    "name": "land_plot",
+    "text": {
+     "minPlaceHolder": "Min SqM",
+     "maxPlaceHolder": "Max SqM"
+    }
+   },
+   {
+    "type": "minMax",
+    "label": "Year Built",
+    "name": "year_built",
+    "text": {
+     "minPlaceHolder": "Min Year",
+     "maxPlaceHolder": "Max Year"
+    }
+   }
+  ]
+ }
+]
