@@ -78,3 +78,21 @@ that map visitors will see the key.
 This project is not affiliated with FazWaz. It scrapes a website that offers no
 public API, so anything upstream can change and break parsing. Intended for
 personal, non-commercial use.
+
+## Screenshots
+
+### Project search
+
+![Project search](docs/screenshots/project-search.png)
+
+### Project detail
+
+![Project detail](docs/screenshots/project-detail.png)
+
+### Favourite properties
+
+![Favourite properties](docs/screenshots/favourite-properties.png)
+
+### Longdo map integration
+
+![Longdo map integration](docs/screenshots/longdo-map-integration.png)
